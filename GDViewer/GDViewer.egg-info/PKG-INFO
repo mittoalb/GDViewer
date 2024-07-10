@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: GDViewer
 Version: 0.1.0
-Summary: A ZARR viewer using ImageJ.
-Author-email: Your Name <your.email@example.com>
+Summary: A Globus ZARR viewer using ImageJ.
+Author-email: Alberto Mittone <amittone@anl.gov>
 Description-Content-Type: text/markdown
 License-File: LICENCE
 Requires-Dist: imagej

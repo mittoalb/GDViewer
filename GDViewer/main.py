@@ -3,12 +3,12 @@ import scyjava as sj
 import signal
 import sys
 import time
-from colorama import init, Fore
 from threading import Event
 from GDViewer.gui import show_dialog
+from GDViewer.log import setup_custom_logger, info
 
-# Initialize colorama for colored terminal output
-init(autoreset=True)
+# Initialize the custom logger
+setup_custom_logger(stream_to_console=True)
 
 # Initialize global variables
 axial_img = None
@@ -21,7 +21,7 @@ current_indices = {'axial': None, 'sagittal': None, 'coronal': None}
 
 def signal_handler(sig, frame):
     global stop_event
-    print(Fore.YELLOW + 'Exiting gracefully...')
+    info('Exiting gracefully...')
     stop_event.set()
     ij.context().dispose()
     sys.exit(0)
@@ -31,13 +31,13 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-    print(Fore.CYAN + "Initializing ImageJ...")
+    info("Initializing ImageJ...")
     ij = imagej.init('sc.fiji:fiji', mode='interactive')
     ij.ui().showUI()
     sj.jimport('ij.ImagePlus')
     time.sleep(2)  # Give time for the UI to initialize
 
-    print(Fore.GREEN + "ImageJ initialized.")
+    info("ImageJ initialized.")
 
     show_dialog(ij)
 

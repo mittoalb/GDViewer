@@ -1,6 +1,16 @@
 import zarr
 import time
+import fsspec
 from colorama import Fore
+from GDViewer.log import info, error, warning, debug
+
+def open_zarr_store(url, token=None):
+    if token:
+        headers = {'Authorization': f'Bearer {token}'}
+        store = zarr.storage.FSStore(url, storage_options={'headers': headers})
+    else:
+        store = zarr.storage.FSStore(url)
+    return zarr.open_group(store, mode='r')
 
 def find_resolutions(store):
     metadata = store.attrs.asdict()
@@ -23,7 +33,7 @@ def load_slice(store, resolution_level, axis, index):
         else:
             raise ValueError("Invalid axis value. Must be 0, 1, or 2.")
         end_time = time.time()
-        print(Fore.GREEN + f"Loaded slice at index {index} along axis {axis} from resolution {resolution_level} in {end_time - start_time:.2f} seconds")
+        info(f"Loaded slice at index {index} along axis {axis} from resolution {resolution_level} in {end_time - start_time:.2f} seconds")
         return data_slice
     else:
         raise ValueError(f"Resolution level {resolution_level} not found in the ZARR store.")
