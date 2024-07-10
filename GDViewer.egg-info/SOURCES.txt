@@ -1,0 +1,12 @@
+LICENCE
+README.md
+pyproject.toml
+GDViewer/__init__.py
+GDViewer/gui.py
+GDViewer/image_processing.py
+GDViewer/main.py
+GDViewer/utils.py
+GDViewer.egg-info/PKG-INFO
+GDViewer.egg-info/SOURCES.txt
+GDViewer.egg-info/dependency_links.txt
+GDViewer.egg-info/top_level.txt
