@@ -19,5 +19,8 @@ git clone https://github.com/mittoalb/GDViewer.git
 cd GDViewer
 pip install .
 ```
-
+Use:
+```bash
+python -m GDViewer.main
+```
 
