@@ -105,7 +105,7 @@ def show_dialog(ij):
     tk.Label(root, text="DATA URL:").place(x=20, y=20)
     url_field = tk.Entry(root, width=50)
     url_field.place(x=120, y=20)
-    url_field.insert(0, "https://g-df2e9.fd635.8443.data.globus.org/ESRF_APRIL_ZARR/Brain_715699L_0.854um.zarr")
+    url_field.insert(0, "https://your_File.zarr")
 
     tk.Label(root, text="Token:").place(x=20, y=60)
     token_field = tk.Entry(root, width=50)
