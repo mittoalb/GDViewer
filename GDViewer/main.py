@@ -28,32 +28,35 @@ def signal_handler(sig, frame):
     ij.context().dispose()
     sys.exit(0)
 
-
 def initialize_imagej(imagej_path='sc.fiji:fiji', mode='interactive'):
-	"""
-	Initializes ImageJ with the specified mode and version.
+    """
+    Initializes ImageJ with the specified mode and version.
 
-	Parameters:
-	imagej_path (str): The path or version of ImageJ to initialize.
-	mode (str): The mode to run ImageJ ('interactive' or 'headless').
+    Parameters:
+    imagej_path (str): The path or version of ImageJ to initialize.
+    mode (str): The mode to run ImageJ ('interactive' or 'headless').
 
-	Returns:
-	ImageJ instance or None if initialization fails.
-	"""
-	try:
-		if os.path.exists(imagej_path):
-			ij = imagej.init(imagej_path, mode=mode)
-		else:
-			ij = imagej.init(mode=mode)
-		return ij
-	except Exception as e:
-		print(f"Error initializing ImageJ: {e}")
-		return None
-
-
-
-
-
+    Returns:
+    ImageJ instance or None if initialization fails.
+    """
+    try:
+        # Check if the provided path exists
+        if os.path.exists(imagej_path):
+            print(f"Using ImageJ installation at: {imagej_path}")
+            ij = imagej.init(imagej_path, mode=mode)
+        else:
+            print(f"Provided path does not exist. Using default ImageJ version: {imagej_path}")
+            ij = imagej.init(imagej_path, mode=mode)
+        
+        # Verify the initialization
+        if ij is None:
+            raise RuntimeError("ImageJ initialization returned None")
+        
+        print("ImageJ initialized successfully")
+        return ij
+    except Exception as e:
+        print(f"Error initializing ImageJ: {e}")
+        return None
 
 @click.command()
 @click.option('--imagej-path', default='sc.fiji:fiji', help='Path to ImageJ installation')
