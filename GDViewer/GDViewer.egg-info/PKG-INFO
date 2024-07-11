@@ -10,6 +10,7 @@ Requires-Dist: zarr
 Requires-Dist: scyjava
 Requires-Dist: colorama
 Requires-Dist: tk
+Requires-Dist: click
 
 # GDViewer
 

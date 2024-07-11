@@ -15,7 +15,11 @@ dependencies = [
     "zarr",
     "scyjava",
     "colorama",
-    "tk"
+    "tk",
+    "click",
+    "requests",
+    "fsspec",
+    "aiohttp"
 ]
 
 [tool.setuptools.packages.find]
