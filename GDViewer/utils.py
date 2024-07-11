@@ -1,13 +1,13 @@
 import zarr
 import time
 import fsspec
-from colorama import Fore
 from GDViewer.log import info, error, warning, debug
 
 def open_zarr_store(url, token=None):
     if token:
-        headers = {'Authorization': f'Bearer {token}'}
-        store = zarr.storage.FSStore(url, storage_options={'headers': headers})
+        # Use fsspec to handle the token for authentication
+        fs = fsspec.filesystem('https', headers={'Authorization': f'Bearer {token}'})
+        store = zarr.storage.FSStore(url, fs=fs)
     else:
         store = zarr.storage.FSStore(url)
     return zarr.open_group(store, mode='r')

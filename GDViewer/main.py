@@ -3,6 +3,8 @@ import scyjava as sj
 import signal
 import sys
 import time
+import os
+import click
 from threading import Event
 from GDViewer.gui import show_dialog
 from GDViewer.log import setup_custom_logger, info
@@ -26,13 +28,46 @@ def signal_handler(sig, frame):
     ij.context().dispose()
     sys.exit(0)
 
-def main():
+
+def initialize_imagej(imagej_path='sc.fiji:fiji', mode='interactive'):
+	"""
+	Initializes ImageJ with the specified mode and version.
+
+	Parameters:
+	imagej_path (str): The path or version of ImageJ to initialize.
+	mode (str): The mode to run ImageJ ('interactive' or 'headless').
+
+	Returns:
+	ImageJ instance or None if initialization fails.
+	"""
+	try:
+		if os.path.exists(imagej_path):
+			ij = imagej.init(imagej_path, mode=mode)
+		else:
+			ij = imagej.init(mode=mode)
+		return ij
+	except Exception as e:
+		print(f"Error initializing ImageJ: {e}")
+		return None
+
+
+
+
+
+
+@click.command()
+@click.option('--imagej-path', default='sc.fiji:fiji', help='Path to ImageJ installation')
+def main(imagej_path):
     global ij
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-    info("Initializing ImageJ...")
-    ij = imagej.init('sc.fiji:fiji', mode='interactive')
+    print("Initializing ImageJ...")
+    ij = initialize_imagej(imagej_path, mode='interactive')
+    if ij is None:
+        print("Failed to initialize ImageJ. Exiting.")
+        return
+
     ij.ui().showUI()
     sj.jimport('ij.ImagePlus')
     time.sleep(2)  # Give time for the UI to initialize

@@ -7,3 +7,9 @@ A ZARR viewer using ImageJ.
 ```bash
 pip install .
 
+
+```bash
+Requires to have FIJI installed in your system.
+
+
+
