@@ -107,9 +107,9 @@ def show_dialog(ij):
     url_field.place(x=120, y=20)
     url_field.insert(0, "https://your_File.zarr")
 
-    tk.Label(root, text="Token:").place(x=20, y=60)
-    token_field = tk.Entry(root, width=50)
-    token_field.place(x=120, y=60)
+    #tk.Label(root, text="Token:").place(x=20, y=60)
+    #token_field = tk.Entry(root, width=50)
+    #token_field.place(x=120, y=60)
 
     tk.Label(root, text="Resolution Layer:").place(x=20, y=100)
     resolution_slider = tk.Scale(root, from_=0, to=6, orient=tk.HORIZONTAL)
@@ -128,7 +128,7 @@ def show_dialog(ij):
     coronal_slider.place(x=240, y=280)
 
     update_button = tk.Button(root, text="Update", command=update_action)
-    update_button.place(x=700, y=100)
+    update_button.place(x=700, y=20)
 
     root.mainloop()
 
